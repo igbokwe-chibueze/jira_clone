@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+.homeStyle {
+  text-align: center;
+  font-size: 1.5rem; /* 2xl = 1.5rem */
+  font-weight: 600; /* semibold */
+  margin-top: 2.5rem; /* mt-10 = 2.5rem */
+}
+
+/* You can also define theme variables here if needed */
+@theme {
+  /* example color */
+  --my-text-color: oklch(62.7% 0.194 149.214);
+}
+
+/* .homeStyle{
+    color: var(--my-text-color);
+} */
+
+.homeStyle{
+  color: var(--color-yellow-600);
+}
