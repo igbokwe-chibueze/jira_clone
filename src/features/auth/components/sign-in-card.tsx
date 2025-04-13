@@ -1,3 +1,5 @@
+//src/features/auth/components/sign-in-card.tsx
+
 "use client"
 
 import z from "zod";
@@ -18,16 +20,17 @@ import {
     FormItem,
     FormMessage,
 } from "@/components/ui/form"
-import Link from "next/link";
 
-const formSchema = z.object({
-    email: z.string().email(),
-    password: z.string().min(1).max(256),
-})
+import Link from "next/link";
+import { signInSchema } from "@/features/auth/schemas";
+import { useSignIn } from "../api/use-signin";
 
 const SignInCard = () => {
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
+
+    const {mutate} = useSignIn();
+    
+    const form = useForm<z.infer<typeof signInSchema>>({
+        resolver: zodResolver(signInSchema),
 
         defaultValues: {
             email: "",
@@ -35,8 +38,8 @@ const SignInCard = () => {
         }
     });
 
-    const onSubmit = (values: z.infer<typeof formSchema>) => {
-        console.log({ values });
+    const onSubmit = (values: z.infer<typeof signInSchema>) => {
+        mutate({json: values});
     }
 
   return (

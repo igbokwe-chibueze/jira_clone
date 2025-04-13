@@ -10,7 +10,6 @@ const AuthLayout = ({
   }: Readonly<{
     children: React.ReactNode;
   }>) => {
-      //const pathname = usePathname();
       const isSignIn = usePathname() === '/sign-in';
 
   return (

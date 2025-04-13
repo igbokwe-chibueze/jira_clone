@@ -19,16 +19,16 @@ import {
     FormItem,
     FormMessage,
 } from "@/components/ui/form"
+import { signUpSchema } from "../schemas";
+import { useSignUp } from "../api/use-signup";
 
-const formSchema = z.object({
-    name: z.string().trim().min(2).max(256),
-    email: z.string().email(),
-    password: z.string().min(6).max(256),
-})
+
 
 const SignUpCard = () => {
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
+    const {mutate} = useSignUp();
+
+    const form = useForm<z.infer<typeof signUpSchema>>({
+        resolver: zodResolver(signUpSchema),
 
         defaultValues: {
             name: "",
@@ -37,8 +37,8 @@ const SignUpCard = () => {
         }
     });
 
-    const onSubmit = (values: z.infer<typeof formSchema>) => {
-        console.log({ values });
+    const onSubmit = (values: z.infer<typeof signUpSchema>) => {
+        mutate({json: values});
     }
 
   return (
