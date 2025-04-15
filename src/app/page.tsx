@@ -1,70 +1,32 @@
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import React from 'react'
+"use client"
 
-const page = () => {
+import { Button } from "@/components/ui/button";
+import { useCurrent } from "@/features/auth/api/use-current"
+import { useSignOut } from "@/features/auth/api/use-signout";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+
+const HomePage = () => {
+  const router = useRouter();
+  const {data, isLoading} = useCurrent();
+  const {mutate} = useSignOut();
+  
+  useEffect(() => {
+    if(!data && !isLoading) {
+      router.push("/sign-in");
+    }
+  
+  }, [data]);
+    
   return (
-    <div className='text-center'>
+    <div className='flex flex-col justify-center items-center h-screen'>
       <span className='text-3xl font-bold'>This is the main page</span>
+      <span className='text-md'>Only visible to authorized users</span>
 
-      <div>
-      <Input/>
-      </div>
-
-      <div className=''>
-        <Button
-        >
-          Primary
-        </Button>
-
-        <Button
-          variant={'destructive'}
-        >
-          Destructive
-        </Button>
-
-        <Button
-          variant={'ghost'}
-        >
-          Ghost
-        </Button>
-
-        <Button
-          variant={'link'}
-        >
-          Link
-        </Button>
-
-        <Button
-          variant={'outline'}
-        >
-          Outline
-        </Button>
-
-        <Button
-          variant={'secondary'}
-          size={'lg'}
-        >
-          Secondary
-        </Button>
-
-        <Button
-          variant={'muted'}
-        >
-          Muted
-        </Button>
-
-        <Button
-          variant={'teritary'}
-        >
-          Teritary
-        </Button>
-
-
-      </div>
+      <Button onClick={() => mutate()}>Sign Out</Button>
       
     </div>
   )
 }
 
-export default page
+export default HomePage
