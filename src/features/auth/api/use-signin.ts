@@ -1,15 +1,19 @@
 //src/features/auth/api/use-signin.ts
 
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { InferRequestType, InferResponseType } from "hono";
 
 import { client } from "@/lib/rpc";
+import { useRouter } from "next/navigation";
 
 type ResponseType = InferResponseType<typeof client.api.auth.signIn['$post']>;
 type RequestType = InferRequestType<typeof client.api.auth.signIn['$post']>;
 
 
 export const useSignIn = () => {
+    const router = useRouter();
+    const queryClient = useQueryClient();
+
     const mutation = useMutation<
         ResponseType,
         Error,
@@ -22,6 +26,10 @@ export const useSignIn = () => {
                 throw new Error(response.statusText);
             }
             return await response.json();
+        },
+        onSuccess: () => {
+            router.refresh();
+            queryClient.invalidateQueries({queryKey: ["current"]});
         }
     })
 

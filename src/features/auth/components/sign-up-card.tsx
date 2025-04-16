@@ -25,7 +25,7 @@ import { useSignUp } from "../api/use-signup";
 
 
 const SignUpCard = () => {
-    const {mutate} = useSignUp();
+    const {mutate, isPending} = useSignUp();
 
     const form = useForm<z.infer<typeof signUpSchema>>({
         resolver: zodResolver(signUpSchema),
@@ -127,7 +127,7 @@ const SignUpCard = () => {
                     <Button 
                         size={"lg"}
                         className="w-full"
-                        disabled={false}
+                        disabled={isPending}
                     >
                         Sign Up
                     </Button>
@@ -140,7 +140,7 @@ const SignUpCard = () => {
         </div>
 
         <CardContent className="p-7 flex flex-col gap-y-4">
-            <Button variant={'secondary'} className="w-full" size={'lg'} disabled={false}>
+            <Button variant={'secondary'} className="w-full" size={'lg'} disabled={isPending}>
                 <Image
                     src="/icons8-google.svg"
                     alt="google-icon"
@@ -151,7 +151,7 @@ const SignUpCard = () => {
                 Signup with Google
             </Button>
 
-            <Button variant={'secondary'} className="w-full" size={'lg'} disabled={false}>
+            <Button variant={'secondary'} className="w-full" size={'lg'} disabled={isPending}>
                 <Image
                     src="/icons8-github.svg"
                     alt="github-icon"
