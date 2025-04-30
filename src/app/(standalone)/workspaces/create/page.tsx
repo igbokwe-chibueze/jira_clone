@@ -1,6 +1,6 @@
 // src/app/(standalone)/workspaces/create/page.tsx
 
-import { getCurrent } from "@/features/auth/actions";
+import { getCurrent } from "@/features/auth/queries";
 import { CreateWorkSpaceForm } from "@/features/workspaces/components/create-workspace-form";
 import { redirect } from "next/navigation";
 
