@@ -1,4 +1,4 @@
-// src/features/workspaces/api/use-update-workspace.ts
+// src/features/workspaces/api/use-join-workspace.ts
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { InferRequestType, InferResponseType } from "hono";
@@ -6,11 +6,11 @@ import { InferRequestType, InferResponseType } from "hono";
 import { client } from "@/lib/rpc";
 import { toast } from "sonner";
 
-type ResponseType = InferResponseType<typeof client.api.workspaces[":workspaceId"]['$patch'], 200>;
-type RequestType = InferRequestType<typeof client.api.workspaces[":workspaceId"]['$patch']>;
+type ResponseType = InferResponseType<typeof client.api.workspaces[":workspaceId"]['join']['$post'], 200>;
+type RequestType = InferRequestType<typeof client.api.workspaces[":workspaceId"]['join']['$post']>;
 
 
-export const useUpdateWorkspace = () => {
+export const useJoinWorkspace = () => {
     const queryClient = useQueryClient();
 
     const mutation = useMutation<
@@ -18,8 +18,8 @@ export const useUpdateWorkspace = () => {
         Error,
         RequestType
     >({
-        mutationFn: async ({form, param}) => {
-            const response = await client.api.workspaces[":workspaceId"].$patch({form, param});
+        mutationFn: async ({param, json}) => {
+            const response = await client.api.workspaces[":workspaceId"].join.$post({param, json});
 
             if (!response.ok) {
                 throw new Error(response.statusText);
@@ -28,12 +28,14 @@ export const useUpdateWorkspace = () => {
             return await response.json();
         },
         onSuccess: ({data}) => {
-            toast.success("Workspace updated");
+            const { workspaceId } = data;
+
+            toast.success("Joined workspace");
             queryClient.invalidateQueries({queryKey: ["workspaces"]});
-            queryClient.invalidateQueries({queryKey: ["workspace", data.$id]});
+            queryClient.invalidateQueries({ queryKey: ["workspace", workspaceId] });
         },
         onError: () => {
-            toast.error("Failed to update workspace");
+            toast.error("Failed to join workspace");
         }
     })
 
