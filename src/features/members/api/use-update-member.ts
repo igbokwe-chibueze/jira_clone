@@ -1,4 +1,4 @@
-//src/features.workspacese-create-workspace.ts
+// src/features/members/api/use-update-member.ts
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { InferRequestType, InferResponseType } from "hono";
@@ -6,11 +6,11 @@ import { InferRequestType, InferResponseType } from "hono";
 import { client } from "@/lib/rpc";
 import { toast } from "sonner";
 
-type ResponseType = InferResponseType<typeof client.api.workspaces['$post'], 200>;
-type RequestType = InferRequestType<typeof client.api.workspaces['$post']>;
+type ResponseType = InferResponseType<typeof client.api.members[":memberId"]['$patch'], 200>;
+type RequestType = InferRequestType<typeof client.api.members[":memberId"]['$patch']>;
 
 
-export const useCreateWorkspace = () => {
+export const useUpdateMember = () => {
     const queryClient = useQueryClient();
 
     const mutation = useMutation<
@@ -18,8 +18,8 @@ export const useCreateWorkspace = () => {
         Error,
         RequestType
     >({
-        mutationFn: async (form) => {
-            const response = await client.api.workspaces.$post(form);
+        mutationFn: async ({param, json}) => {
+            const response = await client.api.members[":memberId"].$patch({param, json});
 
             if (!response.ok) {
                 throw new Error(response.statusText);
@@ -28,11 +28,11 @@ export const useCreateWorkspace = () => {
             return await response.json();
         },
         onSuccess: () => {
-            toast.success("Workspace created");
-            queryClient.invalidateQueries({queryKey: ["workspaces"]});
+            toast.success("Member updated");
+            queryClient.invalidateQueries({queryKey: ["members"]});
         },
         onError: () => {
-            toast.error("Failed to create workspace");
+            toast.error("Failed to update member");
         }
     })
 

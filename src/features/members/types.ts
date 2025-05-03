@@ -1,4 +1,6 @@
+// src/features/members/types.ts
+
 export enum MemberRole {
-    ADIMN = "ADMIN",
+    ADMIN = "ADMIN",
     MEMBER = "MEMBER"
 };
