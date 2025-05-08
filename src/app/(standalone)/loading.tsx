@@ -1,4 +1,4 @@
-// src/app/(dashboard)/loading.tsx
+// src/app/(standalone)/loading.tsx
 
 "use client";
 
