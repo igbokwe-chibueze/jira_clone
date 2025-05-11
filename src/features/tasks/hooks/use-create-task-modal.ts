@@ -7,6 +7,9 @@ export const useCreateTaskModal = () => {
         parseAsBoolean.withDefault(false).withOptions({ clearOnDefault: true })
     )
 
+    //Incase i want to have an initial status for a task once i open this model
+    //const open = (initialStatus: TaskStatus) => setIsOpen(true)
+
     const open = () => setIsOpen(true)
     const close = () => setIsOpen(false)
 
