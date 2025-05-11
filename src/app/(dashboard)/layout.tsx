@@ -6,6 +6,7 @@ import { Sidebar } from "@/components/sidebar";
 import { CreateWorkSpaceModal } from "@/features/workspaces/components/create-workspace-modal";
 import { CreateProjectModal } from '@/features/projects/components/create-project-modal';
 import { CreateTaskModel } from '@/features/tasks/components/create-task-modal';
+import { EditTaskModel } from '@/features/tasks/components/edit-task-modal';
 
 
 const DashboardLayout = async ({children,}: {children: React.ReactNode;}) => {
@@ -17,6 +18,7 @@ const DashboardLayout = async ({children,}: {children: React.ReactNode;}) => {
                 <CreateWorkSpaceModal/>
                 <CreateProjectModal/>
                 <CreateTaskModel/>
+                <EditTaskModel/>
 
                 <div className="flex w-full h-full">
                     <div className=" fixed left-0 top-0 hidden lg:block lg:w-[264px] h-full overflow-y-auto">
