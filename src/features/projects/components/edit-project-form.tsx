@@ -84,16 +84,20 @@ export const EditProjectForm = ({onCancel, initialValues}: EditProjectFormProps)
         mutate({
             form: finalValues,
             param: {projectId: initialValues.$id,}
-        },{
-            onSuccess: ({ data }) => {
-                //form.reset();
-                // Reset form to updated values (including new name)
-                form.reset({
-                    name: data.name,
-                    image: data.imageUrl ?? "",
-                });
-            },
         });
+        // mutate({
+        //     form: finalValues,
+        //     param: {projectId: initialValues.$id,}
+        // },{
+        //     onSuccess: ({ data }) => {
+        //         //form.reset();
+        //         // Reset form to updated values (including new name)
+        //         form.reset({
+        //             name: data.name,
+        //             image: data.imageUrl ?? "",
+        //         });
+        //     },
+        // });
     };
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
