@@ -44,7 +44,6 @@ export const DataFilters = ({hideProjectFilter}: DataFiltersProps) => {
         assigneeId,
         projectId,
         dueDate,
-        search, //may not need search
     }, setFilters] = useTaskFilters();
 
     const onStatusChange = (value: string) => {
