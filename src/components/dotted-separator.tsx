@@ -34,7 +34,7 @@ const DottedSeparator = ({
                 backgroundImage: `radial-gradient(circle, ${color} 25%, transparent 25%)`,
                 backgroundSize: isHorizontal ?
                     `${parseInt(dotSize) + parseInt(dotSpacing)}px ${height}` :
-                    `${height} ${parseInt(dotSize) + parseInt(dotSpacing)}px}`,
+                    `${height} ${parseInt(dotSize) + parseInt(dotSpacing)}px`,
                 backgroundRepeat: isHorizontal ?
                     "repeat-x" :
                     "repeat-y",
