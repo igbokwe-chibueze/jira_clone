@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { zodResolver} from "@hookform/resolvers/zod"
 
+import { signUpWithGithub, signUpWithGoogle } from "@/lib/oauth";
 import DottedSeparator from "@/components/dotted-separator";
 import Image from "next/image";
 import Link from "next/link";
@@ -140,7 +141,12 @@ const SignUpCard = () => {
         </div>
 
         <CardContent className="p-7 flex flex-col gap-y-4">
-            <Button variant={'secondary'} className="w-full" size={'lg'} disabled={isPending}>
+            <Button 
+                onClick={() =>signUpWithGoogle()} 
+                variant={'secondary'} 
+                className="w-full" size={'lg'} 
+                disabled={isPending}
+            >
                 <Image
                     src="/icons8-google.svg"
                     alt="google-icon"
@@ -151,7 +157,12 @@ const SignUpCard = () => {
                 Signup with Google
             </Button>
 
-            <Button variant={'secondary'} className="w-full" size={'lg'} disabled={isPending}>
+            <Button 
+                onClick={() =>signUpWithGithub()} 
+                variant={'secondary'} 
+                className="w-full" 
+                size={'lg'} disabled={isPending}
+            >
                 <Image
                     src="/icons8-github.svg"
                     alt="github-icon"

@@ -3,16 +3,16 @@
 "use client"
 
 import z from "zod";
+import Link from "next/link";
+import { useForm } from "react-hook-form";
+import { zodResolver} from "@hookform/resolvers/zod"
+import Image from "next/image";
 
+import { signUpWithGithub, signUpWithGoogle } from "@/lib/oauth";
+import DottedSeparator from "@/components/dotted-separator";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { useForm } from "react-hook-form";
-import { zodResolver} from "@hookform/resolvers/zod"
-
-import DottedSeparator from "@/components/dotted-separator";
-import Image from "next/image";
-
 import {
     Form,
     FormControl,
@@ -21,9 +21,10 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 
-import Link from "next/link";
 import { signInSchema } from "@/features/auth/schemas";
 import { useSignIn } from "../api/use-signin";
+
+
 
 const SignInCard = () => {
 
@@ -112,7 +113,13 @@ const SignInCard = () => {
         </div>
 
         <CardContent className="p-7 flex flex-col gap-y-4">
-            <Button variant={'secondary'} className="w-full" size={'lg'} disabled={isPending}>
+            <Button 
+                onClick={() =>signUpWithGoogle()} 
+                variant={'secondary'} 
+                className="w-full" 
+                size={'lg'} 
+                disabled={isPending}
+            >
                 <Image
                     src="/icons8-google.svg"
                     alt="google-icon"
@@ -123,7 +130,13 @@ const SignInCard = () => {
                 Signin with Google
             </Button>
 
-            <Button variant={'secondary'} className="w-full" size={'lg'} disabled={isPending}>
+            <Button 
+                onClick={() =>signUpWithGithub()} 
+                variant={'secondary'} 
+                className="w-full" 
+                size={'lg'} 
+                disabled={isPending}
+            >
                 <Image
                     src="/icons8-github.svg"
                     alt="github-icon"
